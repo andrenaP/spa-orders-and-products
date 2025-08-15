@@ -5,7 +5,7 @@ import Products from "./pages/Products";
 import Orders from "./pages/Orders";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-const link = process.env.REACT_APP_API_URL || "http://localhost:3001";
+const link = process.env.REACT_APP_API_URL;
 const socket = io(link);
 
 function TopMenu({ sessionCount }) {
