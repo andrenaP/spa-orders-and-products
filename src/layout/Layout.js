@@ -1,49 +1,61 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-function Layout({ children }) {
+export default function Sidebar({ children }) {
+  const location = useLocation();
+
+  const navItems = [
+    { path: "/", label: "Home" },
+    { path: "/orders", label: "приход" },
+    { path: "/groups", label: "группы" },
+    { path: "/products", label: "продукты" },
+    { path: "/users", label: "пользователи" },
+    { path: "/settings", label: "настройки" },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      top
-      <nav className="bg-blue-600 text-white p-4">
-        <ul className="flex space-x-4">
-          <li>
-            <Link to="/" className="hover:underline">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/income" className="hover:underline">
-              приход
-            </Link>
-          </li>
-          <li>
-            <Link to="/groups" className="hover:underline">
-              группы
-            </Link>
-          </li>
-          <li>
-            <Link to="/products" className="hover:underline">
-              продукты
-            </Link>
-          </li>
-          <li>
-            <Link to="/users" className="hover:underline">
-              пользователи
-            </Link>
-          </li>
-          <li>
-            <Link to="/settings" className="hover:underline">
-              настройки
-            </Link>
-          </li>
+    <div style={{ display: "flex" }}>
+      <nav
+        style={{
+          width: "200px",
+          minHeight: "100vh",
+          backgroundColor: "#f0f0f0",
+          padding: "1rem",
+          // position: "fixed",
+          left: 0,
+          top: 0,
+        }}
+      >
+        <ul
+          style={{
+            listStyle: "none",
+            padding: 0,
+            margin: 0,
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+          }}
+        >
+          {navItems.map((item) => (
+            <li
+              key={item.path}
+              style={{
+                borderBottom:
+                  location.pathname === item.path ? "2px solid green" : "none",
+                paddingBottom: "4px",
+              }}
+            >
+              <Link
+                to={item.path}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
-      <main>{children}</main>
-      <footer>
-        <p>footer</p>
-      </footer>
+
+      <main style={{ padding: "1rem", flex: 1 }}>{children}</main>
     </div>
   );
 }
-
-export default Layout;
