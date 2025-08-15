@@ -5,7 +5,8 @@ import Products from "./pages/Products";
 import Orders from "./pages/Orders";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-const socket = io("http://localhost:3001");
+const link = process.env.REACT_APP_API_URL || "http://localhost:3001";
+const socket = io(link);
 
 function TopMenu({ sessionCount }) {
   const [currentTime, setCurrentTime] = useState(
@@ -39,13 +40,13 @@ function App() {
   // const location = useLocation();
   // API
   const fetchOrders = () => {
-    fetch("http://localhost:3001/api/orders")
+    fetch(link + "/api/orders")
       .then((res) => res.json())
       .then((data) => setOrders(data));
   };
 
   const fetchProducts = () => {
-    fetch("http://localhost:3001/api/products")
+    fetch(link + "/api/products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   };
@@ -62,7 +63,7 @@ function App() {
   };
 
   const deleteOrder = (orderId) => {
-    fetch(`http://localhost:3001/api/orders/${orderId}`, {
+    fetch(link + `/api/orders/${orderId}`, {
       method: "DELETE",
     }).then(() => {
       setShowPopup(false);
@@ -73,7 +74,7 @@ function App() {
   };
 
   const deleteProduct = (productId) => {
-    fetch(`http://localhost:3001/api/products/${productId}`, {
+    fetch(`link + `/api/products/${productId}`, {
       method: "DELETE",
     }).then(() => fetchProducts());
   };
@@ -347,3 +348,4 @@ function App() {
 }
 
 export default App;
+
