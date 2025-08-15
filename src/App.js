@@ -74,7 +74,7 @@ function App() {
   };
 
   const deleteProduct = (productId) => {
-    fetch(`link + `/api/products/${productId}`, {
+    fetch(link + `/api/products/${productId}`, {
       method: "DELETE",
     }).then(() => fetchProducts());
   };
